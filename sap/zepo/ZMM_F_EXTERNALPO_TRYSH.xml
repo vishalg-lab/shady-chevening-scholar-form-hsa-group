@@ -1264,7 +1264,7 @@ URL-FIELD = XSTRING1</exData>
                               </border>
                               <bind match="none"/>
                               <event activity="initialize" name="event__initialize">
-                                 <script contentType="application/x-javascript">// Column title comes from the driver (HD-MFRPN_TITLE):
+                                 <script contentType="application/x-javascript" runAt="both">// Column title comes from the driver (HD-MFRPN_TITLE):
 // "GRADE NO" when BUKRS 1700 / WERKS 1710,1712,1713 / BSTYP F / MTART ZROH,ZPCK / BSART ZEPO.
 // Falls back to the original title when the node is empty.
 var oTitle = xfa.resolveNode("$record.HD.MFRPN_TITLE");

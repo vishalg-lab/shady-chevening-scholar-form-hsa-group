@@ -24,6 +24,10 @@
 
 لا تغيير على بنية الأصناف `ZMM_TT_EXTERNALPO`: القيمة تُكتب في الحقل الموجود `MFRPN`.
 
+> تنبيه: نفس الـ Structure (`hd23`) تُمرَّر أيضًا إلى الفورمات `ZMM_F_EXTERNAL_PO_ASSET` / `_ASSET_2400` (ZAPO)
+> و `ZMM_F_EXTERNAL_PO_SERVICE` (ZSPO / ZCPO). إضافة حقل جديد لا تكسرها (الحقل يبقى فارغًا ولا تستخدمه)،
+> لكن جرّب طباعة أمر واحد من كل نوع بعد النقل للتأكد من إعادة توليد الـ Function Modules.
+
 ## 2) Driver ABAP (`ZMM_PO_DRIVER_MAIN.abap`، فرع `ZEPO / ZCOP / ZNPO`)
 - لكل صنف داخل `SELECT ... ENDSELECT` يُقرأ `BUKRS WERKS BSTYP MTART BEDNR` من `EKPO` ويُفحص الشرط.
   - الفحص يتم **قبل** `SHIFT wa23-ebelp` لأن `EKPO-EBELP` من نوع NUMC (مثل `00010`).
