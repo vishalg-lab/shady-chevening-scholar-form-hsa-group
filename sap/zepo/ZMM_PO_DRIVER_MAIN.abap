@@ -560,22 +560,29 @@ FORM entry_neu USING ent_retco ent_screen.
 *       LANG TYPE THEAD-TDSPRAS,
            Amount23      TYPE wrbtr.
 
-* --- GRADE NO column (replaces Manufacturer Part No. for company 1700) ---
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> GRADE NO - CHANGE 1 of 4 (DECLARATIONS)  ---  COPY FROM HERE
+*>>> Paste after:  Amount23      TYPE wrbtr.
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+* GRADE NO column (replaces Manufacturer Part No. for company 1700)
 * All conditions must be true for an item:
 *   EKKO-BSART = ZEPO, EKPO-BUKRS = 1700, EKPO-WERKS = 1710/1712/1713,
 *   EKPO-BSTYP = F,    EKPO-MTART = ZROH/ZPCK
 * Then the column title becomes GRADE NO and the value is EKPO-BEDNR (10 chars).
-    DATA: BEGIN OF ls_grd23,
-            bukrs TYPE ekpo-bukrs,
-            werks TYPE ekpo-werks,
-            bstyp TYPE ekpo-bstyp,
-            mtart TYPE ekpo-mtart,
-            bednr TYPE ekpo-bednr,
-          END OF ls_grd23,
-          lv_grd_item23 TYPE abap_bool,
-          lv_grd_cnt23  TYPE i,
-          lv_itm_cnt23  TYPE i.
-    CLEAR: lv_grd_cnt23, lv_itm_cnt23.
+    DATA: BEGIN OF ls_grd23,                            "<<< NEW
+            bukrs TYPE ekpo-bukrs,                      "<<< NEW
+            werks TYPE ekpo-werks,                      "<<< NEW
+            bstyp TYPE ekpo-bstyp,                      "<<< NEW
+            mtart TYPE ekpo-mtart,                      "<<< NEW
+            bednr TYPE ekpo-bednr,                      "<<< NEW
+          END OF ls_grd23,                              "<<< NEW
+          lv_grd_item23 TYPE abap_bool,                 "<<< NEW
+          lv_grd_cnt23  TYPE i,                         "<<< NEW
+          lv_itm_cnt23  TYPE i.                         "<<< NEW
+    CLEAR: lv_grd_cnt23, lv_itm_cnt23.                  "<<< NEW
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*<<< GRADE NO - CHANGE 1 of 4 (DECLARATIONS)  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     total23 = 0 .
     BREAK aalmansoub.
     hd23-ebeln = doc_no.
@@ -905,26 +912,32 @@ FORM entry_neu USING ent_retco ent_screen.
       wa23-waers2 = hd23-waers .
 *SELECT SINGLE LOEKZ INTO LOEKZ FROM EKPO WHERE EBELN EQ HD23-EBELN . "ADDED BY ABDELRAHMAN AND KHALED ON 5.2.2020"
 
-* --- GRADE NO: check all conditions for this item -----------------------
-* Must run before SHIFT wa23-ebelp below (EKPO-EBELP is NUMC 5, e.g. 00010).
-      lv_itm_cnt23 = lv_itm_cnt23 + 1.
-      lv_grd_item23 = abap_false.
-      CLEAR ls_grd23.
-      IF doc_type EQ 'ZEPO'.
-        SELECT SINGLE bukrs werks bstyp mtart bednr
-          FROM ekpo
-          INTO CORRESPONDING FIELDS OF ls_grd23
-          WHERE ebeln EQ hd23-ebeln
-            AND ebelp EQ wa23-ebelp.
-        IF sy-subrc EQ 0
-          AND ls_grd23-bukrs EQ '1700'
-          AND ( ls_grd23-werks EQ '1710' OR ls_grd23-werks EQ '1712' OR ls_grd23-werks EQ '1713' )
-          AND ls_grd23-bstyp EQ 'F'
-          AND ( ls_grd23-mtart EQ 'ZROH' OR ls_grd23-mtart EQ 'ZPCK' ).
-          lv_grd_item23 = abap_true.
-        ENDIF.
-      ENDIF.
-* ------------------------------------------------------------------------
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> GRADE NO - CHANGE 2 of 4 (CHECK CONDITIONS PER ITEM)  ---  COPY FROM HERE
+*>>> Paste inside SELECT ... ENDSELECT, after:  wa23-waers2 = hd23-waers .
+*>>> Must stay BEFORE  SHIFT wa23-ebelp  (EKPO-EBELP is NUMC 5, e.g. 00010).
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      lv_itm_cnt23 = lv_itm_cnt23 + 1.                                    "<<< NEW
+      lv_grd_item23 = abap_false.                                         "<<< NEW
+      CLEAR ls_grd23.                                                     "<<< NEW
+      IF doc_type EQ 'ZEPO'.                                              "<<< NEW
+        SELECT SINGLE bukrs werks bstyp mtart bednr                       "<<< NEW
+          FROM ekpo                                                       "<<< NEW
+          INTO CORRESPONDING FIELDS OF ls_grd23                           "<<< NEW
+          WHERE ebeln EQ hd23-ebeln                                       "<<< NEW
+            AND ebelp EQ wa23-ebelp.                                      "<<< NEW
+        IF sy-subrc EQ 0                                                  "<<< NEW
+          AND ls_grd23-bukrs EQ '1700'                                    "<<< NEW
+          AND ( ls_grd23-werks EQ '1710' OR ls_grd23-werks EQ '1712'      "<<< NEW
+                                         OR ls_grd23-werks EQ '1713' )    "<<< NEW
+          AND ls_grd23-bstyp EQ 'F'                                       "<<< NEW
+          AND ( ls_grd23-mtart EQ 'ZROH' OR ls_grd23-mtart EQ 'ZPCK' ).   "<<< NEW
+          lv_grd_item23 = abap_true.                                      "<<< NEW
+        ENDIF.                                                            "<<< NEW
+      ENDIF.                                                              "<<< NEW
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*<<< GRADE NO - CHANGE 2 of 4 (CHECK CONDITIONS PER ITEM)  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
       IF pg EQ 'P03'.
         SELECT SINGLE mfrpn FROM mara INTO wa23-mfrpn WHERE matnr EQ wa23-matnr .
@@ -962,14 +975,20 @@ FORM entry_neu USING ent_retco ent_screen.
 
       SHIFT wa23-mfrpn LEFT DELETING LEADING '0'.
 
-* --- GRADE NO: put EKPO-BEDNR in the column for qualifying items ---------
-* Done after the SHIFT above so leading zeros in BEDNR are kept as entered.
-      IF lv_grd_item23 EQ abap_true.
-        CLEAR wa23-mfrpn.
-        wa23-mfrpn = ls_grd23-bednr.          " EKPO-BEDNR, CHAR 10
-        lv_grd_cnt23 = lv_grd_cnt23 + 1.
-      ENDIF.
-* ------------------------------------------------------------------------
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> GRADE NO - CHANGE 3 of 4 (PUT EKPO-BEDNR IN COLUMN)  ---  COPY FROM HERE
+*>>> Paste after:  SHIFT wa23-mfrpn LEFT DELETING LEADING '0'.
+*>>> and BEFORE:   APPEND wa23 TO it23 .
+*>>> (after the SHIFT so leading zeros in BEDNR are kept as entered)
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      IF lv_grd_item23 EQ abap_true.                      "<<< NEW
+        CLEAR wa23-mfrpn.                                 "<<< NEW
+        wa23-mfrpn = ls_grd23-bednr.                      "<<< NEW  EKPO-BEDNR, CHAR 10
+        lv_grd_cnt23 = lv_grd_cnt23 + 1.                  "<<< NEW
+      ENDIF.                                              "<<< NEW
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*<<< GRADE NO - CHANGE 3 of 4 (PUT EKPO-BEDNR IN COLUMN)  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 *  IF LOEKZ IS INITIAL .
       APPEND wa23 TO it23 .
@@ -979,16 +998,22 @@ FORM entry_neu USING ent_retco ent_screen.
 
     ENDSELECT.
 
-* --- GRADE NO: column title for the form (HD-MFRPN_TITLE) ----------------
-    IF lv_grd_cnt23 > 0 AND lv_grd_cnt23 EQ lv_itm_cnt23.
-      hd23-mfrpn_title = 'GRADE NO'.
-    ELSEIF lv_grd_cnt23 > 0.
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> GRADE NO - CHANGE 4 of 4 (COLUMN TITLE HD-MFRPN_TITLE)  ---  COPY FROM HERE
+*>>> Paste right after the ENDSELECT. of the item loop (SELECT ... FROM ekpo)
+*>>> Needs field MFRPN_TITLE (CHAR40) in structure ZMM_ST_EXTERNALPO.
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    IF lv_grd_cnt23 > 0 AND lv_grd_cnt23 EQ lv_itm_cnt23.              "<<< NEW
+      hd23-mfrpn_title = 'GRADE NO'.                                  "<<< NEW
+    ELSEIF lv_grd_cnt23 > 0.                                          "<<< NEW
 *     Mixed PO: some items qualify, some do not
-      hd23-mfrpn_title = 'Manufacturer Part No./ Code / GRADE NO'.
-    ELSE.
-      hd23-mfrpn_title = 'Manufacturer Part No./ Code'.
-    ENDIF.
-* ------------------------------------------------------------------------
+      hd23-mfrpn_title = 'Manufacturer Part No./ Code / GRADE NO'.    "<<< NEW
+    ELSE.                                                             "<<< NEW
+      hd23-mfrpn_title = 'Manufacturer Part No./ Code'.               "<<< NEW
+    ENDIF.                                                            "<<< NEW
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*<<< GRADE NO - CHANGE 4 of 4 (COLUMN TITLE HD-MFRPN_TITLE)  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     BREAK aalmansoub.
 *SORT IT23  ASCENDING BY ebelp_N.
 

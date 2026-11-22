@@ -1247,6 +1247,12 @@ URL-FIELD = XSTRING1</exData>
                                  <edge/>
                               </border>
                            </draw>
+                           <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                >>> GRADE NO - LAYOUT CHANGE 1 of 2 (COLUMN HEADER)  ===  COPY FROM HERE
+                                >>> Location: TABLE > overflowLeader, 3rd cell (after "Description").
+                                >>> NEW: this <field name="MFRPN_HDR"> REPLACES the old static <draw>
+                                >>>      whose text was "Manufacturer Part No./ Code" (delete that draw).
+                                >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
                            <field access="readOnly" name="MFRPN_HDR">
                               <ui>
                                  <textEdit multiLine="1">
@@ -1276,6 +1282,9 @@ if (oTitle != null &amp;&amp; oTitle.value != null &amp;&amp; oTitle.value.repla
 </script>
                               </event>
                            </field>
+                           <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                                <<< GRADE NO - LAYOUT CHANGE 1 of 2 (COLUMN HEADER)  ===  COPY TILL HERE
+                                <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
                            <draw colSpan="2" h="8.761mm" w="33.333mm">
                               <ui>
                                  <textEdit>
@@ -2446,7 +2455,10 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
             <REMARKS/>
             <BANK_DETAILS/>
             <TEXT_FOR_OTH_COND/>
-            <MFRPN_TITLE/>
+            <!-- >>> GRADE NO - LAYOUT CHANGE 2 of 2 (DATA NODE)  ===  COPY FROM HERE
+                 >>> Location: dataDescription > data > HD, after <TEXT_FOR_OTH_COND/> -->
+            <MFRPN_TITLE/>   <!-- <<< NEW -->
+            <!-- <<< GRADE NO - LAYOUT CHANGE 2 of 2 (DATA NODE)  ===  COPY TILL HERE -->
          </HD>
          <GRAPHICS1/>
          <FT>
