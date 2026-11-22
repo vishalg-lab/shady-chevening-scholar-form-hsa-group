@@ -1247,14 +1247,14 @@ URL-FIELD = XSTRING1</exData>
                                  <edge/>
                               </border>
                            </draw>
-                           <draw>
+                           <field access="readOnly" name="MFRPN_HDR">
                               <ui>
-                                 <textEdit>
+                                 <textEdit multiLine="1">
                                     <margin/>
                                  </textEdit>
                               </ui>
                               <value>
-                                 <text xliff:rid="D31D8772-3D24-433A-B2BC-884026913B75">Manufacturer Part No./ Code</text>
+                                 <text>Manufacturer Part No./ Code</text>
                               </value>
                               <font baselineShift="0pt" typeface="Arial" weight="bold"/>
                               <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
@@ -1262,7 +1262,20 @@ URL-FIELD = XSTRING1</exData>
                               <border>
                                  <edge/>
                               </border>
-                           </draw>
+                              <bind match="none"/>
+                              <event activity="initialize" name="event__initialize">
+                                 <script contentType="application/x-javascript">// Column title comes from the driver (HD-MFRPN_TITLE):
+// "GRADE NO" when BUKRS 1700 / WERKS 1710,1712,1713 / BSTYP F / MTART ZROH,ZPCK / BSART ZEPO.
+// Falls back to the original title when the node is empty.
+var oTitle = xfa.resolveNode("$record.HD.MFRPN_TITLE");
+if (oTitle != null &amp;&amp; oTitle.value != null &amp;&amp; oTitle.value.replace(/\s/g, "") != "") {
+    this.rawValue = oTitle.value;
+} else {
+    this.rawValue = "Manufacturer Part No./ Code";
+}
+</script>
+                              </event>
+                           </field>
                            <draw colSpan="2" h="8.761mm" w="33.333mm">
                               <ui>
                                  <textEdit>
@@ -2433,6 +2446,7 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
             <REMARKS/>
             <BANK_DETAILS/>
             <TEXT_FOR_OTH_COND/>
+            <MFRPN_TITLE/>
          </HD>
          <GRAPHICS1/>
          <FT>
