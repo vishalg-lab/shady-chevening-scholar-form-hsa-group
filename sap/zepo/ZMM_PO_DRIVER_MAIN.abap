@@ -1241,9 +1241,19 @@ FORM entry_neu USING ent_retco ent_screen.
 *          ENDIF.
 **        ELSE.
 *        UNIFIED EXTERNAL PO DONE BY SHADY ALMURAISH
-        IF hd23-version <> 0 OR hd23-version = '' .
-            CONCATENATE  'Purchase Order External'  ' Duplicate Copy' hd23-version  INTO   hd23-header SEPARATED BY space.
-          ENDIF.
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> REMOVE "DUPLICATE COPY"  ---  COPY FROM HERE
+*>>> Request: the word "Duplicate Copy" is not needed on the printout.
+*>>> The header stays 'Purchase Order External' for every print.
+*>>> ZFM_REPLACMENT_LOST below is kept, so print versions are still logged.
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*        IF hd23-version <> 0 OR hd23-version = '' .                                                                         "<<< OLD
+*            CONCATENATE  'Purchase Order External'  ' Duplicate Copy' hd23-version  INTO   hd23-header SEPARATED BY space.  "<<< OLD
+*          ENDIF.                                                                                                             "<<< OLD
+          hd23-header = 'Purchase Order External'.                "<<< NEW
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*<<< REMOVE "DUPLICATE COPY"  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
           CALL FUNCTION 'ZFM_REPLACMENT_LOST'
             EXPORTING
               bukrs      = hd23-bukrs

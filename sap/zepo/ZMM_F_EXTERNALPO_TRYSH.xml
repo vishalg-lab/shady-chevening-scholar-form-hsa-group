@@ -2253,13 +2253,16 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
          <?templateDesigner expand 0?></subform>
       <subform h="38.1mm" w="200.268mm">
          <bind match="none"/>
+         <!-- >>> SIGNATURE TITLE FIX  ===  in draw Text3 below (signature block), the text
+              >>> "Purchase In-charge" was changed to "Procurement Manager". Nothing else changed in Text3.
+              >>> In Designer: select Text3 and edit the text directly. -->
          <draw h="1.5in" name="Text3" w="199.771mm" y="0mm">
             <ui>
                <textEdit/>
             </ui>
             <value>
                <exData contentType="text/html" xliff:rid="95D63BD1-671A-4819-B9A2-AE80D190B255">
-                  <body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"><p style="font-size:9pt;letter-spacing:0in">All future correspondence relating to this order, please be addressed to our<span style="xfa-spacerun:yes"> </span><span style="font-size:10pt;letter-spacing:0em">purchasing</span><span style="xfa-spacerun:yes"> </span><span style="font-size:10pt;letter-spacing:0em">management</span></p><p style="font-size:9pt;letter-spacing:0in">Kindly acknowledge the receipt of the above and let us have your order confirmation per return.</p><p style="font-size:9pt;letter-spacing:0in">Note: See Appendix for details of items page 2.<span style="xfa-spacerun:yes"> </span></p><p style="letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p><p style="letter-spacing:0in">Best Regards,</p><p style="letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p><p style="letter-spacing:0in">General Manager<span style="xfa-tab-count:10">                                                                                          </span><span style="font-family:Calibri;font-size:11pt">Purchase In-charge</span></p><p style="font-family:'Times New Roman';font-size:12pt;letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p><p style="font-family:'Times New Roman';font-size:12pt;letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p></body>
+                  <body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"><p style="font-size:9pt;letter-spacing:0in">All future correspondence relating to this order, please be addressed to our<span style="xfa-spacerun:yes"> </span><span style="font-size:10pt;letter-spacing:0em">purchasing</span><span style="xfa-spacerun:yes"> </span><span style="font-size:10pt;letter-spacing:0em">management</span></p><p style="font-size:9pt;letter-spacing:0in">Kindly acknowledge the receipt of the above and let us have your order confirmation per return.</p><p style="font-size:9pt;letter-spacing:0in">Note: See Appendix for details of items page 2.<span style="xfa-spacerun:yes"> </span></p><p style="letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p><p style="letter-spacing:0in">Best Regards,</p><p style="letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p><p style="letter-spacing:0in">General Manager<span style="xfa-tab-count:10">                                                                                          </span><span style="font-family:Calibri;font-size:11pt">Procurement Manager</span></p><p style="font-family:'Times New Roman';font-size:12pt;letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p><p style="font-family:'Times New Roman';font-size:12pt;letter-spacing:0in"><span style="xfa-spacerun:yes"> </span></p></body>
                </exData>
             </value>
             <font typeface="Arial"/>
@@ -2309,7 +2312,12 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                <corner thickness="0.1778mm"/>
             </border>
          </draw>
-         <draw h="463.58mm" name="Text8" w="7.875in">
+         <!-- >>> EMPTY PAGES FIX - CHANGE 1 of 2  ===  COPY FROM HERE
+              >>> Text8 (General Terms & Conditions) had a FIXED height h="463.58mm" (about 2.5 pages).
+              >>> When the text is shorter, the remaining fixed space produced empty pages.
+              >>> NEW: minH="0mm" = height grows only as much as the text needs (Object > Layout > Expand to fit). -->
+         <draw minH="0mm" name="Text8" w="7.875in">
+         <!-- <<< EMPTY PAGES FIX - CHANGE 1 of 2  ===  COPY TILL HERE (old line was: <draw h="463.58mm" name="Text8" w="7.875in">) -->
             <ui>
                <textEdit/>
             </ui>
@@ -2323,7 +2331,9 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
             <para marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt"/>
             <keep intact="none" next="contentArea"/>
          </draw>
-         <breakAfter targetType="pageArea"/>
+         <!-- >>> EMPTY PAGES FIX - CHANGE 2 of 2  ===  DELETED LINE: <breakAfter targetType="pageArea"/>
+              >>> This was on the LAST subform of the form, so it always forced one extra empty page
+              >>> after the General Terms & Conditions (Object > Pagination > After: Continue filling parent). -->
          <?templateDesigner expand 0?></subform>
       <proto>
          <?templateDesigner expand 1?></proto>
