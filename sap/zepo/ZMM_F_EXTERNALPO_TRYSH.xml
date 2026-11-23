@@ -344,7 +344,10 @@ this.caption.value.resolveNode("#text").value = (pageNo &gt;= 3) ? "General term
                         <text xliff:rid="6329D037-295F-4232-B06D-5F991427A80E">Our Ref&#x2029; </text>
                      </value>
                   </caption>
-                  <bind match="none"/>
+                  <!-- >>> OUR REF FIX: was <bind match="none"/> (field never showed a value).
+                       >>> Now bound to HD-UNSEZ = EKKO-UNSEZ (Our Reference), filled by the driver.
+                       >>> In Designer: TextField1 > Binding > Data Binding = $.HD.UNSEZ -->
+                  <bind match="dataRef" ref="$.HD.UNSEZ"/>
                   <border>
                      <edge/>
                      <corner/>
@@ -1978,7 +1981,8 @@ if (oTitle != null &amp;&amp; oTitle.value != null &amp;&amp; oTitle.value.repla
                            <?templateDesigner expand 1?></subform>
                         <?templateDesigner expand 1?></subform>
                      <?templateDesigner expand 0?></subform>
-                  <field h="9mm" name="PO_HD_TEXT" w="196.831mm">
+                  <!-- >>> HIDE PO_HD_TEXT ALWAYS  ===  COPY FROM HERE (presence="hidden" + script below) -->
+                  <field h="9mm" name="PO_HD_TEXT" presence="hidden" w="196.831mm">
                      <ui>
                         <textEdit>
                            <border presence="hidden"/>
@@ -1995,8 +1999,10 @@ if (oTitle != null &amp;&amp; oTitle.value != null &amp;&amp; oTitle.value.repla
                         </value>
                      </caption>
                      <event activity="initialize" name="event__initialize">
-                        <script contentType="application/x-javascript" runAt="both">var value = this.rawValue;
-this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+                        <script contentType="application/x-javascript" runAt="both">// HIDE ALWAYS (request): Mode of payment / Mode of Delivery / Time of Delivery are not printed.
+// To show them again when filled, restore the old line:
+// this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+this.presence = "hidden";
 </script>
                      </event>
                      <bind match="dataRef" ref="$record.HD.PO_HD_TEXT"/>
@@ -2007,7 +2013,9 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                         <text name="Schema Annotation">Name</text>
                      </desc>
                   </field>
-                  <field h="9mm" name="DELIVERY_METHOD" w="196.831mm">
+                  <!-- <<< HIDE PO_HD_TEXT ALWAYS  ===  COPY TILL HERE -->
+                  <!-- >>> HIDE DELIVERY_METHOD ALWAYS  ===  COPY FROM HERE (presence="hidden" + script below) -->
+                  <field h="9mm" name="DELIVERY_METHOD" presence="hidden" w="196.831mm">
                      <ui>
                         <textEdit>
                            <border presence="hidden"/>
@@ -2024,8 +2032,10 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                         </value>
                      </caption>
                      <event activity="initialize" name="event__initialize">
-                        <script contentType="application/x-javascript" runAt="both">var value = this.rawValue;
-this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+                        <script contentType="application/x-javascript" runAt="both">// HIDE ALWAYS (request): Mode of payment / Mode of Delivery / Time of Delivery are not printed.
+// To show them again when filled, restore the old line:
+// this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+this.presence = "hidden";
 </script>
                      </event>
                      <bind match="dataRef" ref="$record.HD.DELIVERY_METHOD"/>
@@ -2036,7 +2046,9 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                         <text name="Schema Annotation">Name</text>
                      </desc>
                   </field>
-                  <field h="9mm" name="DELIVERY_TIME" w="196.831mm">
+                  <!-- <<< HIDE DELIVERY_METHOD ALWAYS  ===  COPY TILL HERE -->
+                  <!-- >>> HIDE DELIVERY_TIME ALWAYS  ===  COPY FROM HERE (presence="hidden" + script below) -->
+                  <field h="9mm" name="DELIVERY_TIME" presence="hidden" w="196.831mm">
                      <ui>
                         <textEdit>
                            <border presence="hidden"/>
@@ -2054,8 +2066,10 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                         </value>
                      </caption>
                      <event activity="initialize" name="event__initialize">
-                        <script contentType="application/x-javascript" runAt="both">var value = this.rawValue;
-this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+                        <script contentType="application/x-javascript" runAt="both">// HIDE ALWAYS (request): Mode of payment / Mode of Delivery / Time of Delivery are not printed.
+// To show them again when filled, restore the old line:
+// this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+this.presence = "hidden";
 </script>
                      </event>
                      <bind match="dataRef" ref="$record.HD.DELIVERY_TIME"/>
@@ -2066,6 +2080,7 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                         <text name="Schema Annotation">Name</text>
                      </desc>
                   </field>
+                  <!-- <<< HIDE DELIVERY_TIME ALWAYS  ===  COPY TILL HERE -->
                   <?templateDesigner expand 1?></subform>
                <keep intact="none"/>
                <?templateDesigner expand 1?></subform>
@@ -2074,19 +2089,24 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
       <subform layout="tb" name="Row6">
          <assist role="TR"/>
          <subform layout="tb" name="Subform3" w="202.749mm">
+            <!-- >>> SECTIONS SPACING FIX (Special Terms ... Bank Details)
+              >>> - each section hides itself when its text is empty (initialize script)
+              >>> - titles and texts grow to fit (minH="0mm"), no fixed / minimum heights
+              >>>   (SPECIAL_TERMS had minH 31.2mm = the big gap under it)
+              >>> - removed empty lines after each title; removed invalid "minh" attributes -->
             <subform layout="tb" name="SF_SPECIAL_TERMS" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw h="7.406mm" name="LBL_SPECIAL_TERMS" w="7.75in">
+               <draw minH="0mm" name="LBL_SPECIAL_TERMS" w="7.75in">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="4925177F-9971-4EE6-9809-3BB43303A81B">&#x2029;Special Terms and Conditions: -&#x2029;</text>
+                     <text xliff:rid="4925177F-9971-4EE6-9809-3BB43303A81B">&#x2029;Special Terms and Conditions: -</text>
                   </value>
                   <font size="8pt" textColor="0,0,180" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minH="31.203mm" name="SPECIAL_TERMS" w="196.85mm">
+               <field minH="0mm" name="SPECIAL_TERMS" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2098,20 +2118,28 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.SPECIAL_TERMS"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when SPECIAL_TERMS is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("SPECIAL_TERMS");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 0?></subform>
             <subform layout="tb" name="SF_DOC_CLEARANCE" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw h="4.111mm" minh="4.5mm" name="LBL_DOC_CLEARANCE" w="196.85mm">
+               <draw minH="0mm" name="LBL_DOC_CLEARANCE" w="196.85mm">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="201CCF66-9E2A-4496-9015-97254821F92E">Documents Required for Clearance:&#x2029;</text>
+                     <text xliff:rid="201CCF66-9E2A-4496-9015-97254821F92E">Documents Required for Clearance:</text>
                   </value>
                   <font size="8pt" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minh="18.483mm" name="DOC_REQUIRED_CLEARANCE" w="196.85mm">
+               <field minH="0mm" name="DOC_REQUIRED_CLEARANCE" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2123,20 +2151,28 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.DOC_REQUIRED_CLEARANCE"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when DOC_REQUIRED_CLEARANCE is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("DOC_REQUIRED_CLEARANCE");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 1?></subform>
             <subform layout="tb" name="SF_HEALTH_ENV" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw h="4.779mm" minh="4.5mm" name="LBL_HEALTH_ENV" w="196.85mm">
+               <draw minH="0mm" name="LBL_HEALTH_ENV" w="196.85mm">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="3D052CB3-BAFE-44D7-8BCB-80413A534941">Health &amp; environmental safety requirements:&#x2029;&#x2029;</text>
+                     <text xliff:rid="3D052CB3-BAFE-44D7-8BCB-80413A534941">Health &amp; environmental safety requirements:</text>
                   </value>
                   <font size="8pt" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minh="13mm" name="HEALTH_ENV_REQ" w="196.85mm">
+               <field minH="0mm" name="HEALTH_ENV_REQ" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2148,20 +2184,28 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.HEALTH_ENV_REQ"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when HEALTH_ENV_REQ is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("HEALTH_ENV_REQ");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 1?></subform>
             <subform layout="tb" name="SF_PRE_SHIPMENT" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw h="3.933mm" minh="4.5mm" name="LBL_PRE_SHIPMENT" w="196.85mm">
+               <draw minH="0mm" name="LBL_PRE_SHIPMENT" w="196.85mm">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="C38CBA62-A52F-48E4-A18C-1F843B6E7F2D">Pre-shipment advice:&#x2029;&#x2029;</text>
+                     <text xliff:rid="C38CBA62-A52F-48E4-A18C-1F843B6E7F2D">Pre-shipment advice:</text>
                   </value>
                   <font size="8pt" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minh="10mm" name="PRE_SHIPMENT_ADVICE" w="196.85mm">
+               <field minH="0mm" name="PRE_SHIPMENT_ADVICE" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2173,20 +2217,28 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.PRE_SHIPMENT_ADVICE"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when PRE_SHIPMENT_ADVICE is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("PRE_SHIPMENT_ADVICE");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 1?></subform>
             <subform layout="tb" name="SF_SHIPMENT_ADVICE" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw h="4.973mm" minh="4.5mm" name="LBL_SHIPMENT_ADVICE" w="196.85mm">
+               <draw minH="0mm" name="LBL_SHIPMENT_ADVICE" w="196.85mm">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="43F3C46A-C470-4D8B-8E97-17FB1AB19954">Shipment advice:&#x2029;</text>
+                     <text xliff:rid="43F3C46A-C470-4D8B-8E97-17FB1AB19954">Shipment advice:</text>
                   </value>
                   <font size="8pt" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minh="10mm" name="SHIPMENT_ADVICE" w="196.85mm">
+               <field minH="0mm" name="SHIPMENT_ADVICE" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2198,20 +2250,28 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.SHIPMENT_ADVICE"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when SHIPMENT_ADVICE is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("SHIPMENT_ADVICE");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 1?></subform>
             <subform layout="tb" name="SF_REMARKS" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw minh="4.5mm" name="LBL_REMARKS" w="196.85mm">
+               <draw minH="0mm" name="LBL_REMARKS" w="196.85mm">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="2C03F1E5-49E5-47FC-979E-4B141FC2D665">Remarks:&#x2029;</text>
+                     <text xliff:rid="2C03F1E5-49E5-47FC-979E-4B141FC2D665">Remarks:</text>
                   </value>
                   <font size="8pt" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minh="10mm" name="REMARKS" w="196.85mm">
+               <field minH="0mm" name="REMARKS" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2223,20 +2283,28 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.REMARKS"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when REMARKS is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("REMARKS");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 1?></subform>
             <subform layout="tb" name="SF_BANK_DETAILS" w="196.85mm">
                <margin bottomInset="1.5mm"/>
-               <draw minh="4.5mm" name="LBL_BANK_DETAILS" w="196.85mm">
+               <draw minH="0mm" name="LBL_BANK_DETAILS" w="196.85mm">
                   <ui>
                      <textEdit/>
                   </ui>
                   <value>
-                     <text xliff:rid="E782BDA0-6259-40AD-B461-76242F4F580B">Bank details:&#x2029;</text>
+                     <text xliff:rid="E782BDA0-6259-40AD-B461-76242F4F580B">Bank details:</text>
                   </value>
                   <font size="8pt" typeface="Arial" underline="1" weight="bold"/>
                   <para lineHeight="10pt"/>
                </draw>
-               <field minh="12mm" name="BANK_DETAILS" w="196.85mm">
+               <field minH="0mm" name="BANK_DETAILS" w="196.85mm">
                   <ui>
                      <textEdit multiLine="1">
                         <border presence="hidden"/>
@@ -2248,15 +2316,26 @@ this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == ""
                   <para lineHeight="10pt"/>
                   <bind match="dataRef" ref="$record.HD.BANK_DETAILS"/>
                </field>
+               <!-- >>> SECTION AUTO-HIDE  ===  COPY FROM HERE (hide title + text when BANK_DETAILS is empty) -->
+               <event activity="initialize" name="event__initialize">
+                  <script contentType="application/x-javascript" runAt="both">var oFld = this.resolveNode("BANK_DETAILS");
+var v = (oFld == null) ? null : oFld.rawValue;
+this.presence = (v == null || String(v).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
+</script>
+               </event>
+               <!-- <<< SECTION AUTO-HIDE  ===  COPY TILL HERE -->
                <?templateDesigner expand 1?></subform>
             <?templateDesigner expand 1?></subform>
          <?templateDesigner expand 0?></subform>
-      <subform h="38.1mm" w="200.268mm">
+      <!-- >>> SIGNATURE BLOCK SPACING FIX: subform was h="38.1mm" and Text3 was h="1.5in" (fixed).
+           >>> Now both grow to fit the text (minH="0mm") = no fixed empty space after Bank details.
+           >>> In Designer: subform + Text3 > Layout > Height: Expand to fit. -->
+      <subform minH="0mm" w="200.268mm">
          <bind match="none"/>
          <!-- >>> SIGNATURE TITLE FIX  ===  in draw Text3 below (signature block), the text
               >>> "Purchase In-charge" was changed to "Procurement Manager". Nothing else changed in Text3.
               >>> In Designer: select Text3 and edit the text directly. -->
-         <draw h="1.5in" name="Text3" w="199.771mm" y="0mm">
+         <draw minH="0mm" name="Text3" w="199.771mm" y="0mm">
             <ui>
                <textEdit/>
             </ui>

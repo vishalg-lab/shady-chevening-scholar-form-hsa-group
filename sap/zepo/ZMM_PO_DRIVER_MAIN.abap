@@ -591,6 +591,16 @@ FORM entry_neu USING ent_retco ent_screen.
 * GET HEADER DATA OF LOCAL PO FORM
     SELECT SINGLE bedat lifnr bukrs waers  inco1 inco2 verkf FROM ekko INTO CORRESPONDING FIELDS OF hd23
       WHERE ebeln EQ hd23-ebeln .
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> OUR REF  ---  COPY FROM HERE
+*>>> Paste after the SELECT SINGLE bedat lifnr ... FROM ekko above.
+*>>> "Our Ref" on the printout = EKKO-UNSEZ (ME23N > Header > Communication > Our Reference).
+*>>> HD-UNSEZ already exists in ZMM_ST_EXTERNALPO / form context.
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    SELECT SINGLE unsez FROM ekko INTO hd23-unsez                     "<<< NEW
+      WHERE ebeln EQ hd23-ebeln .                                     "<<< NEW
+*<<< OUR REF  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     SELECT SINGLE spras FROM ekko INTO lang WHERE  ebeln EQ hd23-ebeln .
     SELECT SINGLE name1 name2 adrnr FROM lfa1 INTO ( hd23-name1 , hd23-name2 , adrnr23 )
       WHERE lifnr EQ hd23-lifnr .
