@@ -1981,8 +1981,7 @@ if (oTitle != null &amp;&amp; oTitle.value != null &amp;&amp; oTitle.value.repla
                            <?templateDesigner expand 1?></subform>
                         <?templateDesigner expand 1?></subform>
                      <?templateDesigner expand 0?></subform>
-                  <!-- >>> HIDE PO_HD_TEXT ALWAYS  ===  COPY FROM HERE (presence="hidden" + script below) -->
-                  <field h="9mm" name="PO_HD_TEXT" presence="hidden" w="196.831mm">
+                  <field h="9mm" name="PO_HD_TEXT" w="196.831mm">
                      <ui>
                         <textEdit>
                            <border presence="hidden"/>
@@ -1999,10 +1998,8 @@ if (oTitle != null &amp;&amp; oTitle.value != null &amp;&amp; oTitle.value.repla
                         </value>
                      </caption>
                      <event activity="initialize" name="event__initialize">
-                        <script contentType="application/x-javascript" runAt="both">// HIDE ALWAYS (request): Mode of payment / Mode of Delivery / Time of Delivery are not printed.
-// To show them again when filled, restore the old line:
-// this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
-this.presence = "hidden";
+                        <script contentType="application/x-javascript" runAt="both">var value = this.rawValue;
+this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
 </script>
                      </event>
                      <bind match="dataRef" ref="$record.HD.PO_HD_TEXT"/>
@@ -2013,9 +2010,7 @@ this.presence = "hidden";
                         <text name="Schema Annotation">Name</text>
                      </desc>
                   </field>
-                  <!-- <<< HIDE PO_HD_TEXT ALWAYS  ===  COPY TILL HERE -->
-                  <!-- >>> HIDE DELIVERY_METHOD ALWAYS  ===  COPY FROM HERE (presence="hidden" + script below) -->
-                  <field h="9mm" name="DELIVERY_METHOD" presence="hidden" w="196.831mm">
+                  <field h="9mm" name="DELIVERY_METHOD" w="196.831mm">
                      <ui>
                         <textEdit>
                            <border presence="hidden"/>
@@ -2032,10 +2027,8 @@ this.presence = "hidden";
                         </value>
                      </caption>
                      <event activity="initialize" name="event__initialize">
-                        <script contentType="application/x-javascript" runAt="both">// HIDE ALWAYS (request): Mode of payment / Mode of Delivery / Time of Delivery are not printed.
-// To show them again when filled, restore the old line:
-// this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
-this.presence = "hidden";
+                        <script contentType="application/x-javascript" runAt="both">var value = this.rawValue;
+this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
 </script>
                      </event>
                      <bind match="dataRef" ref="$record.HD.DELIVERY_METHOD"/>
@@ -2046,9 +2039,7 @@ this.presence = "hidden";
                         <text name="Schema Annotation">Name</text>
                      </desc>
                   </field>
-                  <!-- <<< HIDE DELIVERY_METHOD ALWAYS  ===  COPY TILL HERE -->
-                  <!-- >>> HIDE DELIVERY_TIME ALWAYS  ===  COPY FROM HERE (presence="hidden" + script below) -->
-                  <field h="9mm" name="DELIVERY_TIME" presence="hidden" w="196.831mm">
+                  <field h="9mm" name="DELIVERY_TIME" w="196.831mm">
                      <ui>
                         <textEdit>
                            <border presence="hidden"/>
@@ -2066,10 +2057,8 @@ this.presence = "hidden";
                         </value>
                      </caption>
                      <event activity="initialize" name="event__initialize">
-                        <script contentType="application/x-javascript" runAt="both">// HIDE ALWAYS (request): Mode of payment / Mode of Delivery / Time of Delivery are not printed.
-// To show them again when filled, restore the old line:
-// this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
-this.presence = "hidden";
+                        <script contentType="application/x-javascript" runAt="both">var value = this.rawValue;
+this.presence = (value == null || String(value).replace(/[\s\u00A0]/g, "") == "") ? "hidden" : "visible";
 </script>
                      </event>
                      <bind match="dataRef" ref="$record.HD.DELIVERY_TIME"/>
@@ -2080,7 +2069,6 @@ this.presence = "hidden";
                         <text name="Schema Annotation">Name</text>
                      </desc>
                   </field>
-                  <!-- <<< HIDE DELIVERY_TIME ALWAYS  ===  COPY TILL HERE -->
                   <?templateDesigner expand 1?></subform>
                <keep intact="none"/>
                <?templateDesigner expand 1?></subform>
