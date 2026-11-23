@@ -598,7 +598,26 @@ FORM entry_neu USING ent_retco ent_screen.
 *SELECT SINGLE VERKF FROM LFM1 INTO HD23-VERKF WHERE LIFNR EQ HD23-LIFNR.
 
     CONCATENATE hd23-inco1 hd23-inco2 INTO hd23-inco_terms SEPARATED BY ' , '.
-    CONCATENATE hd23-name1 hd23-name2 INTO hd23-vendor_name SEPARATED BY ' ' .
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*>>> VENDOR NAME DUPLICATE FIX  ---  COPY FROM HERE
+*>>> Replaces the line:
+*>>>   CONCATENATE hd23-name1 hd23-name2 INTO hd23-vendor_name SEPARATED BY ' ' .
+*>>> Many vendors (YCIC / YCPMI) have the same name in LFA1-NAME1 and NAME2,
+*>>> so the supplier name was printed twice. NAME2 is added only when it
+*>>> is not already part of NAME1 (CS = contains, not case sensitive).
+*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*   CONCATENATE hd23-name1 hd23-name2 INTO hd23-vendor_name SEPARATED BY ' ' .   "<<< OLD
+    IF hd23-name2 IS INITIAL OR hd23-name1 CS hd23-name2.            "<<< NEW
+      hd23-vendor_name = hd23-name1.                                  "<<< NEW  NAME2 empty or already in NAME1
+    ELSEIF hd23-name2 CS hd23-name1.                                  "<<< NEW
+      hd23-vendor_name = hd23-name2.                                  "<<< NEW  NAME2 already holds the full name
+    ELSE.                                                             "<<< NEW
+      CONCATENATE hd23-name1 hd23-name2                               "<<< NEW
+             INTO hd23-vendor_name SEPARATED BY ' ' .                 "<<< NEW
+    ENDIF.                                                            "<<< NEW
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+*<<< VENDOR NAME DUPLICATE FIX  ---  COPY TILL HERE
+*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 *------------------------------------------------------------------------
     SELECT SINGLE ekgrp FROM ekko  INTO pg WHERE ebeln EQ hd23-ebeln.
     IF pg EQ 'P02' .
