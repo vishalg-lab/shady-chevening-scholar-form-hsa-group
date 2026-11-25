@@ -1068,154 +1068,18 @@ URL-FIELD = XSTRING1</exData>
                <?templateDesigner expand 1?></subform>
             <bind match="none"/>
             <?templateDesigner rowpattern first:1, next:1, firstcolor:f0f0f0, nextcolor:ffffff, apply:0?>
-            <subform layout="row" name="Row6">
-               <assist role="TR"/>
-               <subform colSpan="2" columnWidths="31.4356mm 48.6719mm 18.3592mm 38.9395mm 62.862mm" layout="table" name="Table2">
-                  <border>
-                     <edge/>
-                  </border>
-                  <subform layout="row" name="Row1" y="0mm">
-                     <assist role="TR"/>
-                     <draw h="9.8721mm" name="Cell1">
-                        <border>
-                           <edge/>
-                           <corner thickness="0.1778mm"/>
-                        </border>
-                        <ui>
-                           <textEdit/>
-                        </ui>
-                        <value>
-                           <text xliff:rid="8CC82102-202C-456B-BCF9-8672AD99A3CB">Sr
-  No.</text>
-                        </value>
-                        <font baselineShift="0pt" typeface="Arial" weight="bold"/>
-                        <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
-                        <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                     </draw>
-                     <draw h="9.8721mm" name="Cell2">
-                        <border>
-                           <edge/>
-                           <corner thickness="0.1778mm"/>
-                        </border>
-                        <ui>
-                           <textEdit/>
-                        </ui>
-                        <value>
-                           <text xliff:rid="29097AED-67FD-4F5E-93AD-859801896065">Description</text>
-                        </value>
-                        <font baselineShift="0pt" typeface="Arial" weight="bold"/>
-                        <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
-                        <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                     </draw>
-                     <draw h="9.8721mm" name="Cell3">
-                        <border>
-                           <edge/>
-                           <corner thickness="0.1778mm"/>
-                        </border>
-                        <ui>
-                           <textEdit/>
-                        </ui>
-                        <value>
-                           <text xliff:rid="8360DC98-D95A-41C8-AF2E-BBEADBE09CD5">Qty</text>
-                        </value>
-                        <font baselineShift="0pt" typeface="Arial" weight="bold"/>
-                        <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
-                        <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                     </draw>
-                     <draw h="9.8721mm" name="Cell4">
-                        <border>
-                           <edge/>
-                           <corner thickness="0.1778mm"/>
-                        </border>
-                        <ui>
-                           <textEdit/>
-                        </ui>
-                        <value>
-                           <text xliff:rid="CA1F154B-0EC5-4400-84AB-215D2F5017A0">Unit
- Price</text>
-                        </value>
-                        <font baselineShift="0pt" typeface="Arial" weight="bold"/>
-                        <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
-                        <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                     </draw>
-                     <draw h="9.8721mm" name="Cell5">
-                        <border>
-                           <edge/>
-                           <corner thickness="0.1778mm"/>
-                        </border>
-                        <ui>
-                           <textEdit/>
-                        </ui>
-                        <value>
-                           <text xliff:rid="AFEA17EE-41CC-41A2-87DD-9BCADBC683C7">Total Price</text>
-                        </value>
-                        <font baselineShift="0pt" typeface="Arial" weight="bold"/>
-                        <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
-                        <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                     </draw>
-                     <border>
-                        <edge presence="hidden"/>
-                     </border>
-                     <bind match="none"/>
-                     <?templateDesigner expand 1?></subform>
-                  <bind match="none"/>
-                  <?templateDesigner rowpattern first:1, next:1, firstcolor:f0f0f0, nextcolor:ffffff, apply:0?>
-                  <?templateDesigner expand 1?></subform>
-               <?templateDesigner expand 1?></subform>
-            <subform layout="row" name="Row6">
-               <assist role="TR"/>
-               <draw colSpan="-1" h="6.362mm" minW="202.543mm">
-                  <ui>
-                     <textEdit>
-                        <margin/>
-                     </textEdit>
-                  </ui>
-                  <value>
-                     <text xliff:rid="C6904998-20C2-43ED-ADB4-CE6820C039D6">As per attached list</text>
-                  </value>
-                  <font baselineShift="0pt" typeface="Arial" weight="bold"/>
-                  <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
-                  <border>
-                     <edge/>
-                     <corner thickness="0.1778mm"/>
-                  </border>
-               </draw>
-               <?templateDesigner expand 1?></subform>
+            <!-- >>> REMOVED (request): 2 rows of Table1 that printed above the items table:
+                 >>>   1) Row6 / Table2 = header "Sr No. | Description | Qty | Unit Price | Total Price"
+                 >>>   2) Row6 = "As per attached list"
+                 >>> In Designer: Table1 > select both Row6 rows > Delete. The items table (TABLE) is unchanged. -->
             <subform layout="row" name="Row6">
                <assist role="TR"/>
                <subform colSpan="2" layout="tb" name="Subform1" w="203.182mm" y="1.792mm">
                   <bind match="none"/>
                   <subform layout="tb" w="200.025mm">
                      <bind match="none"/>
-                     <subform h="9.525mm" w="200.025mm">
-                        <bind match="none"/>
-                        <field h="9mm" name="EBELN" w="114.3mm">
-                           <ui>
-                              <textEdit>
-                                 <border presence="hidden"/>
-                                 <margin/>
-                              </textEdit>
-                           </ui>
-                           <font typeface="Arial" underline="1" weight="bold"/>
-                           <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
-                           <para vAlign="middle"/>
-                           <caption reserve="66.5568mm">
-                              <font baselineShift="0pt" typeface="Arial" underline="1" weight="bold"/>
-                              <para marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
-                              <value>
-                                 <text xliff:rid="5A07A8A0-64B2-4346-813E-E26C88C3A3C3">APPENDIX TO PURCHASE ORDER NO:</text>
-                              </value>
-                           </caption>
-                           <bind match="dataRef" ref="$record.HD.EBELP_N"/>
-                           <value>
-                              <text maxChars="10"/>
-                           </value>
-                           <desc>
-                              <text name="Schema Annotation">Purchasing Document Number</text>
-                           </desc>
-                        </field>
-                        <?templateDesigner expand 1?></subform>
+                     <!-- >>> REMOVED (request): "APPENDIX TO PURCHASE ORDER NO: <EBELN>" line (subform h=9.525mm with field EBELN).
+                          >>> In Designer: Row6 > Subform1 > first subform > EBELN (caption APPENDIX TO PURCHASE ORDER NO:) - deleted. -->
                      <subform columnWidths="11.256mm 40.765mm 27.996mm 15.861mm 13.573mm 18.354mm 16.6666mm 16.6666mm 24.392mm 14.638mm" layout="table" name="TABLE">
                         <subform id="overflowLeader_ID" layout="row" name="overflowLeader">
                            <draw>
