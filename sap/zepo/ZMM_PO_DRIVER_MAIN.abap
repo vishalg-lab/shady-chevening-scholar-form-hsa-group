@@ -594,10 +594,11 @@ FORM entry_neu USING ent_retco ent_screen.
 *>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 *>>> OUR REF  ---  COPY FROM HERE
 *>>> Paste after the SELECT SINGLE bedat lifnr ... FROM ekko above.
-*>>> "Our Ref" on the printout = EKKO-UNSEZ (ME23N > Header > Communication > Our Reference).
-*>>> HD-UNSEZ already exists in ZMM_ST_EXTERNALPO / form context.
+*>>> "Our Ref" on the printout = EKKO-IHREZ (ME23N > Header > Communication > Your Reference).
+*>>> Stored in the existing field HD-UNSEZ (same length CHAR 12), so no DDIC / form change:
+*>>> the form field "Our Ref" is already bound to $.HD.UNSEZ.
 *>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    SELECT SINGLE unsez FROM ekko INTO hd23-unsez                     "<<< NEW
+    SELECT SINGLE ihrez FROM ekko INTO hd23-unsez                     "<<< NEW (Our Ref = EKKO-IHREZ)
       WHERE ebeln EQ hd23-ebeln .                                     "<<< NEW
 *<<< OUR REF  ---  COPY TILL HERE
 *<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

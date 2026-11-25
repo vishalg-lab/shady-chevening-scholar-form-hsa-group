@@ -345,7 +345,7 @@ this.caption.value.resolveNode("#text").value = (pageNo &gt;= 3) ? "General term
                      </value>
                   </caption>
                   <!-- >>> OUR REF FIX: was <bind match="none"/> (field never showed a value).
-                       >>> Now bound to HD-UNSEZ = EKKO-UNSEZ (Our Reference), filled by the driver.
+                       >>> Now bound to HD-UNSEZ, which the driver fills with EKKO-IHREZ (Our Ref).
                        >>> In Designer: TextField1 > Binding > Data Binding = $.HD.UNSEZ -->
                   <bind match="dataRef" ref="$.HD.UNSEZ"/>
                   <border>
